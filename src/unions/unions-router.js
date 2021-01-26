@@ -1,13 +1,21 @@
 const express = require('express')
 const UnionService = require('./unions-service')
 
-
+const jsonParser = express.json()
 const unionRouter = express.Router()
 
 unionRouter
-    .get('/', async (req, res, next) => {
+    .get('/', jsonParser, async (req, res, next) => {
+        const db = req.app.get('db')
+        const { page } = req.body
+        if(page < 1 || isNaN(page)){
+            return res
+                .status(400)
+                .json({error: 'Request must include a valid page number'})
+        }
+
         try {
-            const unions = await UnionService.getAllUnions(req.app.get('db'))
+            let unions = await UnionService.getAllUnions(db, page)
             res
                 .status(200)
                 .json(unions)

@@ -1,8 +1,13 @@
+
 const UnionService = {
     getAllUnions(db, page, search){
+        const unionsPerPage = 10
+        const offset = unionsPerPage * (page - 1)
         return db
             .from('unions')
             .select('name', 'industry', 'desc', 'webURL')
+            .limit(unionsPerPage)
+            .offset(offset)
         //function to get all of the unions from db
         //should be paginated to 10 at a time 
         //if there are search terms, filter unions out by search function
