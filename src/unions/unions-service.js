@@ -1,6 +1,6 @@
 
 const UnionService = {
-    getAllUnions(db, page, search){
+    getPaginatedUnions(db, page, search){
         const unionsPerPage = 10
         const offset = unionsPerPage * (page - 1)
         return db
@@ -13,6 +13,12 @@ const UnionService = {
         //if there are search terms, filter unions out by search function
     },
 
+    countAllUnions(db, search){
+        return db
+            .from('unions')
+            .count('id')
+    },
+
     getUnionsByIndustry(db, industry, page, search){
         //returns all unions based on industry,
         //returns in paginated format of 10 at a time
@@ -21,7 +27,8 @@ const UnionService = {
 
     searchUnions(db, search){
         //takes list of unions given and filters by search term
-    }
+    },
+
 }
 
 module.exports = UnionService
