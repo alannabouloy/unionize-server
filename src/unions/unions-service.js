@@ -19,15 +19,34 @@ const UnionService = {
             .count('id')
     },
 
-    getUnionsByIndustry(db, industry, page, search){
+    countUnionsByIndustry(db, industry, search){
+        return db
+            .from('unions')
+            .count('id')
+            .where({industry})
+    },
+
+    getPaginatedUnionsByIndustry(db, industry, page, search){
+        const unionsPerPage = 10
+        const offset = unionsPerPage * (page - 1)
+        return db
+            .from('unions')
+            .select('name', 'industry', 'desc', 'webURL')
+            .where({industry})
+            .limit(unionsPerPage)
+            .offset(offset)
         //returns all unions based on industry,
         //returns in paginated format of 10 at a time
         //if there are search terms, filter unions out by search
     },
 
-    searchUnions(db, search){
-        //takes list of unions given and filters by search term
-    },
+    checkIndustry(db, industry){
+        return db
+            .from('industry')
+            .select('*')
+            .where({industry})
+            .first()
+    }
 
 }
 

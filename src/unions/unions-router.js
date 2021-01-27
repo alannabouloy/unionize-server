@@ -35,7 +35,7 @@ unionRouter
     })
 
 unionRouter
-    .get('/industry', (req, res, next) => {
+    .get('/industry', jsonParser, async (req, res, next) => {
         const db = req.app.get('db')
         const { page, industry } = req.body
 
@@ -50,7 +50,29 @@ unionRouter
                 .status(400)
                 .json({error: 'Request body must include a valid industry type'})
         }
-        next()
+        const hasIndustry = await UnionService.checkIndustry(db, industry)
+        if(!hasIndustry){
+            return res
+                .status(400)
+                .json({error: 'Request body must include a valid industry type'})
+        }
+        try {
+            let unions = await UnionService.getPaginatedUnionsByIndustry(db, hasIndustry.id, page)
+            let count = await UnionService.countUnionsByIndustry(db, hasIndustry.id)
+            count = parseInt(count[0].count)
+            const pageCount = Math.ceil(count / 10 )
+            const data = {
+                unions,
+                pageCount,
+                count
+            }
+            res
+                .status(200)
+                .json(data)
+            next()
+        } catch(error){
+            next(error)
+        } 
     })
 
 
