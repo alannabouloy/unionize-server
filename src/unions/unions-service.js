@@ -3,6 +3,15 @@ const UnionService = {
     getPaginatedUnions(db, page, search){
         const unionsPerPage = 10
         const offset = unionsPerPage * (page - 1)
+        if(search){
+            return db
+                .from('unions')
+                .select('name', 'industry', 'desc', 'webURL')
+                .where('name', 'ILIKE', `%${search}%`)
+                .orWhere('desc', 'ILIKE', `%${search}%`)
+                .limit(unionsPerPage)
+                .offset(offset)
+        }
         return db
             .from('unions')
             .select('name', 'industry', 'desc', 'webURL')
@@ -14,12 +23,29 @@ const UnionService = {
     },
 
     countAllUnions(db, search){
+        if(search){
+            return db
+                .from('unions')
+                .count('id')
+                .where('name', 'ILIKE', `%${search}%`)
+                .orWhere('desc', 'ILIKE', `%${search}%`)
+        }
         return db
             .from('unions')
             .count('id')
     },
 
     countUnionsByIndustry(db, industry, search){
+        if(search){
+            return db
+                .from('unions')
+                .count('id')
+                .where({industry})
+                .andWhere(function(){
+                    this.where('name', 'ILIKE', `%${search}%`)
+                    .orWhere('desc', 'ILIKE', `%${search}%`)
+                })
+        }
         return db
             .from('unions')
             .count('id')
@@ -29,6 +55,17 @@ const UnionService = {
     getPaginatedUnionsByIndustry(db, industry, page, search){
         const unionsPerPage = 10
         const offset = unionsPerPage * (page - 1)
+        if(search){
+            return db
+                .from('unions')
+                .select('name', 'industry', 'desc', 'webURL')
+                .where({industry})
+                .andWhere(function() {
+                    this.where('name', 'ILIKE', `%${search}%`).orWhere('desc', 'ILIKE', `%${search}%`)
+                })
+                .limit(unionsPerPage)
+                .offset(offset)
+        }
         return db
             .from('unions')
             .select('name', 'industry', 'desc', 'webURL')

@@ -1,5 +1,7 @@
 const express = require('express')
 const UnionService = require('./unions-service')
+const url = require('url')
+const querystring = require('querystring')
 
 const jsonParser = express.json()
 const unionRouter = express.Router()
@@ -7,16 +9,18 @@ const unionRouter = express.Router()
 unionRouter
     .get('/', jsonParser, async (req, res, next) => {
         const db = req.app.get('db')
-        const { page } = req.body
+        const page  = req.query.page
+        const search = (req.query.q) ? req.query.q : ''
+
         if(page < 1 || isNaN(page)){
             return res
                 .status(400)
-                .json({error: 'Request body must include a valid page number'})
+                .json({error: 'Request must include a valid page number in url'})
         }
 
         try {
-            let unions = await UnionService.getPaginatedUnions(db, page)
-            let count = await UnionService.countAllUnions(db)
+            let unions = await UnionService.getPaginatedUnions(db, page, search)
+            let count = await UnionService.countAllUnions(db, search)
             count = parseInt(count[0].count)
             const pageCount = Math.ceil(count / 10)
             const data = {
@@ -37,12 +41,14 @@ unionRouter
 unionRouter
     .get('/industry', jsonParser, async (req, res, next) => {
         const db = req.app.get('db')
-        const { page, industry } = req.body
+        const page = req.query.page
+        const search = (req.query.q) ? req.query.q : ''
+        const { industry } = req.body
 
         if(page < 1 || isNaN(page)){
             return res
                 .status(400)
-                .json({error: 'Request body must include a valid page number'})
+                .json({error: 'Request must include a valid page number in url'})
         }
 
         if(!industry){
@@ -57,8 +63,8 @@ unionRouter
                 .json({error: 'Request body must include a valid industry type'})
         }
         try {
-            let unions = await UnionService.getPaginatedUnionsByIndustry(db, hasIndustry.id, page)
-            let count = await UnionService.countUnionsByIndustry(db, hasIndustry.id)
+            let unions = await UnionService.getPaginatedUnionsByIndustry(db, hasIndustry.id, page, search)
+            let count = await UnionService.countUnionsByIndustry(db, hasIndustry.id, search)
             count = parseInt(count[0].count)
             const pageCount = Math.ceil(count / 10 )
             const data = {
