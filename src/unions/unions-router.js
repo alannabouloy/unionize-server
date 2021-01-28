@@ -43,7 +43,7 @@ unionRouter
         const db = req.app.get('db')
         const page = req.query.page
         const search = (req.query.q) ? req.query.q : ''
-        const { industry } = req.body
+        const industry  = req.query.industry
 
         if(page < 1 || isNaN(page)){
             return res
@@ -54,13 +54,13 @@ unionRouter
         if(!industry){
             return res
                 .status(400)
-                .json({error: 'Request body must include a valid industry type'})
+                .json({error: 'Request must include a valid industry type in url'})
         }
         const hasIndustry = await UnionService.checkIndustry(db, industry)
         if(!hasIndustry){
             return res
                 .status(400)
-                .json({error: 'Request body must include a valid industry type'})
+                .json({error: 'Request must include a valid industry type in url'})
         }
         try {
             let unions = await UnionService.getPaginatedUnionsByIndustry(db, hasIndustry.id, page, search)
