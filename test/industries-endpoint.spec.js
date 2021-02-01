@@ -31,6 +31,7 @@ describe('Industries endpoint', () => {
 
             return supertest(app)
                 .get('/api/industries')
+                .set('Authorization', helpers.makeAuthHeader())
                 .expect(200)
                 .expect(expectedResponse)
         })

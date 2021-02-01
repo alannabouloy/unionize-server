@@ -48,6 +48,7 @@ describe('Unions endpoints', () => {
 
                 return supertest(app)
                     .get('/api/unions/?page=1')
+                    .set('Authorization', helpers.makeAuthHeader())
                     .expect(200)
                     .expect(expectedResults)
             })
@@ -73,6 +74,7 @@ describe('Unions endpoints', () => {
 
                 return supertest(app)
                     .get('/api/unions/?page=1&q=app')
+                    .set('Authorization', helpers.makeAuthHeader())
                     .expect(200)
                     .expect(expectedResults)
             })
@@ -109,6 +111,7 @@ describe('Unions endpoints', () => {
 
                 return supertest(app)
                     .get('/api/unions/industry/?page=1&industry=Industry%201')
+                    .set('Authorization', helpers.makeAuthHeader())
                     .expect(200)
                     .expect(expectedResults)
             })
@@ -134,6 +137,7 @@ describe('Unions endpoints', () => {
 
                 return supertest(app)
                     .get('/api/unions/industry/?page=1&industry=Industry%201&q=app')
+                    .set('Authorization', helpers.makeAuthHeader())
                     .expect(200)
                     .expect(expectedResults)
             })

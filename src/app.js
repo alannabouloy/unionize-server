@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const unionRouter = require('./unions/unions-router');
 const industryRouter = require('./industries/industries-router');
+const { validateBearerToken } = require('./middleware/token-auth');
 
 const app = express();
 
@@ -16,6 +17,8 @@ const morganOption = (NODE_ENV === 'production')
 app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
+
+app.use(validateBearerToken)
 
 app.use('/api/unions', unionRouter)
 app.use('/api/industries', industryRouter)
