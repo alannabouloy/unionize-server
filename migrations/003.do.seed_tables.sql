@@ -31,7 +31,7 @@ VALUES
 
 INSERT INTO "unions" ("name", "industry", "desc", "webURL")
 VALUES
-    ('Actors''Equity Association', 1, 'A labor union representing American actors and stage managers in the theatre.', 'https://www.actorsequity.org/'),
+    ('Actors'' Equity Association', 1, 'A labor union representing American actors and stage managers in the theatre.', 'https://www.actorsequity.org/'),
     ('Air Line Pilots Association', 2, 'The largest airline pilot union, ALPA represents and advocates for pilots at US and Canadian airlines.', 'http://www.alpa.org/'),
     ('Amalgamated Transit Union', 3, 'The largest labor union representing transit and allied workers in the US and Canada.', 'https://www.atu.org/'),
     ('American Federation of Government Employees', 4, 'The AFGE is the largest federal employee union and represents federal and D.C. government workers nationwide and overseas.', 'https://www.afge.org/'),
@@ -72,9 +72,9 @@ VALUES
     ('International Union of Elevator Constructors', 12, 'The IUEC is an organization designed to promote and protect the interests of elevator constructors across America.', 'https://www.iuec.org/'),
     ('International Union of Operating Engineers', 9, 'The IUOE is a progressive, diversified trade union that primarily represents operating engineers who work as heavy equipment operators, mechanics, and surveyors in the construction industry and in the service industries.', 'http://www.iuoe.org/'),
     ('International Union of Painters and Allied Trades of the United States and Canada', 12, 'The IUPAT represents people who work in the Finishing Trades in the United States and Canada, including industrial and commercial painting, drywall finishin, glazing and glasswork, and several others.', 'http://www.iupat.org/'),
-    ('Laborers''International Union of North America', 12, 'LiUNA is a union of skilled and experienced workers trained to work safely in the construction and energy industries.', 'http://www.liuna.org/'),
+    ('Laborers'' International Union of North America', 12, 'LiUNA is a union of skilled and experienced workers trained to work safely in the construction and energy industries.', 'http://www.liuna.org/'),
     ('National Postal Mail Handlers Union', 19, 'The NPMHU is recognized as the exclusive collevtive bargaining agent for 47,000 Mail Handlers employed by the USPS', 'http://www.npmhu.org/'),
-    ('Marine Engineers''Beneficial Association', 10, 'The MEBA is the nation''s oldest and finest maritime labor union.', 'http://www.mebaunion.org/'),
+    ('Marine Engineers'' Beneficial Association', 10, 'The MEBA is the nation''s oldest and finest maritime labor union.', 'http://www.mebaunion.org/'),
     ('Professional Aviation Safety Specialists', 3, 'PASS represents employees of the Federal Aviation Administration and Department of Defense who install, maintain, support, and certify air traffic control and national defense equipment and work in other areas pertaining to aviation and national defense in the United States and abroad.', 'http://www.passnational.org/'),
     ('National Air Traffic Controllers Association', 3, 'NATCA is a labor union and aviation safety rganization in the United States that represents air traffic controllers, engineers, and other aviation safety-related professionals.', 'http://www.natca.org/'),
     ('National Association of Letter Carriers', 19, 'The NALC is the sole representative of city delivery letter carriers employed by the USPS.', 'http://www.nalc.org/'),
