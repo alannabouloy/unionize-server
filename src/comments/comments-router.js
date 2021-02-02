@@ -2,17 +2,19 @@ const express = require('express')
 const CommentsService = require('./comments-service')
 const path = require('path')
 const xss = require('xss')
+const { networkInterfaces } = require('os')
 const jsonParser = express.json()
 
 const commentsRouter = express.Router()
 
 const sanitizeComment = (data) => {
-    const {comment, union, name, id} = data
+    const {comment, union, name, id, date} = data
     const sanitizedComment = {
         id,
         comment: xss(comment),
         union,
-        name: xss(name)
+        name: xss(name),
+        date
     }
 
     return sanitizedComment
@@ -52,7 +54,7 @@ commentsRouter
     })
     .post('/', jsonParser, async (req, res, next) => {
         const db = req.app.get('db')
-        const { unionName, name, comment } = req.body
+        const { unionName, name, comment, date = new Date.now() } = req.body
 
         if(!unionName){
             return res
@@ -84,7 +86,8 @@ commentsRouter
             const newComment = {
                 name,
                 comment,
-                union: union.id
+                union: union.id,
+                date
             }
 
             const result = await CommentsService.addComent(db, newComment)

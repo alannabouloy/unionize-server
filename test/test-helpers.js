@@ -25,6 +25,32 @@ function makeIndustriesArray(){
     ]
 }
 
+function makeCommentsArray(){
+    return [
+        {
+            id: 1,
+            name: 'testuser',
+            comment: 'comment 1',
+            union: 1,
+            date: '2029-01-22T16:28:32.615Z'
+        },
+        {
+            id: 2,
+            name: 'testuser',
+            comment: 'comment 2',
+            union: 1,
+            date: '2029-01-22T16:28:32.615Z'
+        },
+        {
+            id: 3,
+            name: 'testuser',
+            comment: 'comment 3',
+            union: 1,
+            date: '2029-01-22T16:28:32.615Z'
+        }
+    ]
+}
+
 function makeUnionsArray(){
     return [
         {
@@ -58,9 +84,15 @@ function makeAuthHeader(){
 function cleanTables(db){
     return db.raw(
             `TRUNCATE
+                "comments",
                 "unions",
-                "industry"`
+                "industry"
+            RESTART IDENTITY CASCADE;`
         )
+}
+
+function seedComments(db, comments){
+    return db.into('comments').insert(comments)
 }
 
 function seedIndustries(db, industries){
@@ -75,8 +107,10 @@ module.exports = {
     makeKnexInstance,
     makeIndustriesArray,
     makeUnionsArray,
+    makeCommentsArray,
     makeAuthHeader,
     cleanTables,
     seedIndustries,
-    seedUnions
+    seedUnions,
+    seedComments
 }
