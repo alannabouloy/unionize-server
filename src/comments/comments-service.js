@@ -7,6 +7,14 @@ const CommentsService = {
             .then(rows => rows[0])
     },
 
+    checkUnion(db, union){
+        return db
+            .select('*')
+            .from('unions')
+            .where({name: union})
+            .first()
+    },
+
     getUnionComments(db, union){
         return db
             .select('comment', 'union', 'date')

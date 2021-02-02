@@ -1,6 +1,8 @@
 const express = require('express')
 const IndustryService = require('./industries-service')
 
+
+
 const industryRouter = express.Router()
 
 industryRouter
