@@ -3,6 +3,13 @@ const IndustryService = {
         return db
             .from('industry')
             .select('industry')
+    },
+
+    getIndustryById(db, industryId){
+        return db
+            .from('industry')
+            .where({id: industryId})
+            .first()
     }
 }
 
