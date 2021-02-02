@@ -14,7 +14,7 @@ Users can also navigate to FAQ section to learn more about what unions are and f
 
 ## Endpoints
 
-There are three endpoints for this application, and they all support GET requests.
+There are six endpoints for this application, and they all support GET requests. Only the `/api/comments` endpoint supports POST requests.
 
 1. `/api/industries` returns a list of industries from the 'industry' table of the database.
 
@@ -33,8 +33,25 @@ Responses should look as follows:
         }
     ]`
 
+2. `/api/industries/:industryId` returns a single industry based on the industry given. 
 
-2. `/api/unions` allows you the option of entering in search parameters into the query. All requests return an object that includes a list of unions, a result count, and a pageCount. 
+Requests for this endpoint should look as follows:
+
+`fetch('http://some-endpoint/api/industries/1', {
+    method: 'GET',
+    headers: {
+        'Authorization': 'Bearer {API_TOKEN}'
+})`
+
+Responses should look as follows: 
+    `   {
+            "id" : 1,
+            "industries": "Industry 1"
+        }`
+
+
+
+3. `/api/unions` allows you the option of entering in search parameters into the query. All requests return an object that includes a list of unions, a result count, and a pageCount. 
 
 Requests should always include a page number and have the option to include a search term under the key 'q'. An example request would look as follows:
 
@@ -47,12 +64,12 @@ Requests should always include a page number and have the option to include a se
 And an expected response would look thus:
 
 `{
-    "unions": [ { "name": "union1", "desc": "a description", "industry": 1, "webURL": "http://someurl.com"}],
+    "unions": [ { "name": "union1", "desc": "a description", "industry": 1, "id": 1, "webURL": "http://someurl.com"}],
     "count": 1,
     "pageCount": 1
 }`
 
-3. `/api/unions/industry` expects an industry to be specified in the query and gives you the option of submitting search parameters as well. The structure of the response is the same as those given with the previous endpoint. 
+4. `/api/unions/industry` expects an industry to be specified in the query and gives you the option of submitting search parameters as well. The structure of the response is the same as those given with the previous endpoint. 
 
 Like the above endpoint, requests should always include a page number in request, but should also include an industry which must match with one listed in the 'industry' table of the database.
 
@@ -65,6 +82,64 @@ Requests should look like so:
 })`
 
 If there is no union which matches the parameters given, the unions array will return empty and count and pageCount will both be set to 0. 
+
+5. `/api/unions/:unionId` expects a  valid unionId number to be included in the request parameters.
+
+Requests for this endpoint should look as follows:
+
+`fetch('http://some-endpoint/api/unions/1', {
+    method: 'GET',
+    headers: {
+        'Authorization': 'Bearer {API_TOKEN}'
+})`
+
+Responses should look as follows: 
+    `   {
+            "name": "Union Name",
+            "id": 1,
+            "desc": "a description",
+            "industry": 1,
+            "webURL": "http://alink.com"
+        }`
+
+6. `/api/comments` takes two request types, either a GET or a POST. With GET requests, you must include a valid unionName in the request parameters and with POST you must have a valid unionName, a comment, and a name included in your request body.
+
+GET requests for this endpoint should look as follows:
+
+`fetch('http://some-endpoint/api/comments/?union=unionName', {
+    method: 'GET',
+    headers: {
+        'Authorization': 'Bearer {API_TOKEN}'
+})`
+
+Responses should look as follows: 
+    `[
+        {
+            "id": 1,
+            "name": "Jane",
+            "union": 1,
+            "comment": "a comment",
+            "date": "2021-02-02T16:49:50.617Z"
+        }
+    ]`
+
+If there are no comments which matches the parameters given, the comments array will return empty.
+
+POST requests for this endpoint should look as follows:
+
+`fetch('http://some-endpoint/api/comments', {
+    method: 'POST',
+    headers: {
+        'Authorization': 'Bearer {API_TOKEN}',
+        'Content-Type': 'application/json'
+    },
+    body: {
+        "unionName" : "someUnion",
+        "name" : "Jane",
+        "comment": "a comment"
+    }
+})`
+
 
 All endpoints require an API Token Key to access. Any request which does not have a bearer token in the header will be returned back as an unauthorized request. 
 
