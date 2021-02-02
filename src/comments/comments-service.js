@@ -17,8 +17,10 @@ const CommentsService = {
 
     getUnionComments(db, union){
         return db
-            .select('comment', 'union', 'date')
+            .select('*')
             .from('comments')
-            .where({union: union.id})
+            .where({union})
     }
 }
+
+module.exports = CommentsService

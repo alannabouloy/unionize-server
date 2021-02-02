@@ -7,6 +7,7 @@ const { NODE_ENV } = require('./config');
 const unionRouter = require('./unions/unions-router');
 const industryRouter = require('./industries/industries-router');
 const { validateBearerToken } = require('./middleware/token-auth');
+const commentsRouter = require('./comments/comments-router');
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(validateBearerToken)
 
 app.use('/api/unions', unionRouter)
 app.use('/api/industries', industryRouter)
+app.use('/api/comments', commentsRouter)
 
 app.get('/', (req, res) => {
     res.send('Hello, world!')

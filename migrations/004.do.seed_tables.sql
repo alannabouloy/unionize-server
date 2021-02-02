@@ -1,6 +1,7 @@
 BEGIN;
 
 TRUNCATE
+    "comments",
     "unions",
     "industry";
 
