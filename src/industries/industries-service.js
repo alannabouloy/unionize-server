@@ -1,16 +1,11 @@
 const IndustryService = {
-    getIndustries(db){
-        return db
-            .from('industry')
-            .select('industry')
-    },
+  getIndustries(db) {
+    return db.from("industry").select("industry");
+  },
 
-    getIndustryById(db, industryId){
-        return db
-            .from('industry')
-            .where({id: industryId})
-            .first()
-    }
-}
+  getIndustryById(db, industryId) {
+    return db.from("industry").where({ id: industryId }).first();
+  },
+};
 
-module.exports = IndustryService
+module.exports = IndustryService;
