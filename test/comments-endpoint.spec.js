@@ -3,7 +3,7 @@ const supertest = require('supertest')
 const app = require('../src/app')
 const helpers = require('./test-helpers')
 
-describe.only('Comments endpoint', () => {
+describe('Comments endpoint', () => {
     let db
 
     const testIndustries = helpers.makeIndustriesArray()
