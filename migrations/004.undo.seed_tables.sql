@@ -1,3 +1,4 @@
 TRUNCATE
+    "comments"
     "unions",
     "industry";
