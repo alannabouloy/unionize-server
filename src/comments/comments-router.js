@@ -53,8 +53,6 @@ commentsRouter
     const db = req.app.get("db");
     const { unionName, name, comment, date } = req.body;
 
-    console.log(req.body);
-
     if (!unionName) {
       return res
         .status(400)
