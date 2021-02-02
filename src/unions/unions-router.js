@@ -81,5 +81,29 @@ unionRouter
         } 
     })
 
+unionRouter
+    .get('/:unionId', async (req, res, next) => {
+        const db = req.app.get('db')
+        const unionId = req.params.unionId
+
+        try {
+
+            const union = await UnionService.getUnionById(db, unionId)
+
+            if(!union){
+                return res
+                    .status(404)
+                    .json({error: 'Union Not Found'})
+            }
+
+            res
+                .status(200)
+                .json(union)
+
+        } catch(error){
+            next(error)
+        }
+    })
+
 
 module.exports = unionRouter 

@@ -6,7 +6,7 @@ const UnionService = {
         if(search){
             return db
                 .from('unions')
-                .select('name', 'industry', 'desc', 'webURL')
+                .select('*')
                 .where('name', 'ILIKE', `%${search}%`)
                 .orWhere('desc', 'ILIKE', `%${search}%`)
                 .limit(unionsPerPage)
@@ -14,7 +14,7 @@ const UnionService = {
         }
         return db
             .from('unions')
-            .select('name', 'industry', 'desc', 'webURL')
+            .select('*')
             .limit(unionsPerPage)
             .offset(offset)
         //function to get all of the unions from db
@@ -58,7 +58,7 @@ const UnionService = {
         if(search){
             return db
                 .from('unions')
-                .select('name', 'industry', 'desc', 'webURL')
+                .select('*')
                 .where({industry})
                 .andWhere(function() {
                     this.where('name', 'ILIKE', `%${search}%`).orWhere('desc', 'ILIKE', `%${search}%`)
@@ -68,7 +68,7 @@ const UnionService = {
         }
         return db
             .from('unions')
-            .select('name', 'industry', 'desc', 'webURL')
+            .select('*')
             .where({industry})
             .limit(unionsPerPage)
             .offset(offset)
@@ -82,6 +82,14 @@ const UnionService = {
             .from('industry')
             .select('*')
             .where({industry})
+            .first()
+    },
+
+    getUnionById(db, unionId){
+        return db
+            .from('unions')
+            .select('*')
+            .where({id: unionId})
             .first()
     }
 
